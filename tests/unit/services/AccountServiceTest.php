@@ -21,7 +21,7 @@ final class AccountServiceTest extends TestCase
         
         $account = $this->accountService->createAccount($parent, 'Owen', 50);
 
-        $this->assertEquals('Alice', $account->getAdolescentName());
+        $this->assertEquals('Owen', $account->getAdolescentName());
         $this->assertEquals(50, $account->getBalance());
         $this->assertSame($parent, $account->getParent());
     }
