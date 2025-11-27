@@ -1,7 +1,5 @@
 <?php
 
-/**By Kelian */
-
 declare(strict_types=1);
 
 namespace App\services;
@@ -12,6 +10,7 @@ use App\entities\User;
 class AccountService
 {
     private array $accounts = [];
+    private int $nextId = 1;
 
     public function createAccount(User $parent, string $name, float $balance = 0): Account
     {
@@ -23,7 +22,7 @@ class AccountService
             throw new \InvalidArgumentException("Le nom ne peut être vide.");
         }
 
-        $id = "1";
+        $id = (string)$this->nextId++;
         $account = new Account($id, $name, $parent);
         $account->setBalance($balance);
 
@@ -34,6 +33,9 @@ class AccountService
 
     public function updateBalance(Account $account, float $amount): void
     {
+        if ($amount < 0) {
+            throw new \InvalidArgumentException("La balance ne peut être négative.");
+        }
         $account->setBalance($amount);
     }
 
